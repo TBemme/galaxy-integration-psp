@@ -3,6 +3,7 @@ import json
 import os
 import subprocess
 import sys
+import re
 
 import config
 from galaxy.api.plugin import Plugin, create_and_run_plugin
@@ -11,7 +12,6 @@ from galaxy.api.types import Authentication, Game, LocalGame, LicenseInfo
 from version import __version__
 
 from bs4 import BeautifulSoup
-import re
 
 titleregex = re.compile("([^\(]*) \(.*")
 datregex = re.compile("^[xz0-9]+[0-9]+[0-9]+[0-9]+\s+-")
@@ -33,13 +33,16 @@ class PlayStationPortablePlugin(Plugin):
 		return Authentication("PSPuserId", usercred["username"])
 
 	async def launch_game(self, game_id):
-		emu_path = config.emu_path
-		
+		args = [ config.emu_path ]
+		if config.emu_args != []:
+			args.extend(config.emu_args)
+
 		for game in self.games:
 			if str(game[1]) == game_id:
-				subprocess.Popen([emu_path, game[0]])
+				args.append(game[0])
+				subprocess.Popen(args)
 				break
-		return
+		return	
 
 	# async def install_game(self, game_id):
 		# pass

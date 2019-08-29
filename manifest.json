@@ -2,7 +2,7 @@
     "name": "Galaxy PlayStation Portable Plugin",
     "platform": "psp",
     "guid": "cea94ced-c6cd-44cf-940c-a6c9253827a9",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "PlayStation Portable platform integration for GOG Galaxy 2.0",
     "author": "TBemme",
     "email": "n/a",
